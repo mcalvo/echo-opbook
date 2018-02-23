@@ -1,0 +1,13 @@
+PlayAudio start Open Book
+PlayAudio play Open Book podcast
+PlayAudio play the Open Book podcast
+PlayAudio start the reformation network
+PlayAudio turn on Open Book
+PlayAudio turn on the Open Book podcast
+PlayAudio begin Open Book
+PlayAudio begin Open Book podcast
+AboutIntent tell me about Open Book
+AboutIntent about Open Book
+TodayIntent play todays episode
+TodayIntent play the episode for today
+TodayIntent play today
