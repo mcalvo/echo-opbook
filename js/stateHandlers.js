@@ -4,7 +4,7 @@ const Alexa = require('alexa-sdk');
 const request = require('request');
 const constants = require('./constants');
 const utils = require('./utils');
-const request_string = 'https://fiveqstaging.ligonier.org/podcasts/open-book/alexa.json';
+const request_string = 'https://www.ligonier.org/podcasts/open-book/alexa.json';
 
 function initializeSession(body) {
     let today = new Date();
@@ -300,11 +300,11 @@ const stateHandlers = {
             this.emit(':responseReady');
         },
         'AMAZON.YesIntent' : function () {
-            controller.play.call(this)
+            controller.play.call(this);
         },
         'AMAZON.NoIntent' : function () {
             // We can do a feed refresh on reset
-            controller.reset.call(this)
+            controller.reset.call(this);
         },
         'AMAZON.HelpIntent' : function () {
             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
