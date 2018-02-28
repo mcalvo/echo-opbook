@@ -36,13 +36,13 @@ const stateHandlers = {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                         this.response.speak(message);
                         controller.play.call(this);
                     }.bind(this));
                 } else {
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }
@@ -51,7 +51,7 @@ const stateHandlers = {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }.bind(this));
@@ -70,19 +70,18 @@ const stateHandlers = {
         'AMAZON.HelpIntent' : function () {
             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
 
-            var message = 'You\'re listening to Open Book for ' + podcast.date + ' titled ' + podcast.title + '. You can say Pause, or, Resume, to control playback. To listen to an earlier episode, say Previous. To return to the most recent episode, say Latest Episode. To learn more about Open Book, say About. What can I help you with?';
+            var message = 'You\'re listening to the episode titled ' + podcast.title + ' from Open Book. You can say Pause, or, Resume, to control playback. To listen to an earlier episode, say Previous. To return to the most recent episode, say Latest Episode. To learn more about Open Book, say About. What can I help you with?';
             var reprompt = 'What can I help you with?';
 
             var cardTitle = 'Help with Open Book';
-            var cardContent = 'You\'re listening to Open Book for ' + podcast.date + ' titled \"' + podcast.title + '\".\nSay "Pause" or "Resume" to control playback.\nSay \"Alexa, ask Open Book to play the latest episode\" to play the most recent episode.\nSay "Previous" to listen to an earlier episode.';
+            var cardContent = 'You\'re listening to the episode titled ' + podcast.title + ' from Open Book.\nSay "Pause" or "Resume" to control playback.\nSay \"Alexa, ask Open Book to play the latest episode\" to play the most recent episode.\nSay "Previous" to listen to an earlier episode.';
             this.response.cardRenderer(cardTitle, cardContent, null);
 
             this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
         },
         'AboutIntent': function() {
-            var message = "Open Book, hosted by Dr. Stephen Nichols, is a new podcast. Open Book is an outreach of Ligonier.";
-
+            var message = "Open Book is a weekly audio program about the power of books and the people they\'ve shaped. Each season, join host Dr. Stephen Nichols weekly as we hear amazing stories and insights that our special guests have gleaned from the books on their shelves. Open Book is an outreach of Ligonier Ministries, an international Christian discipleship organization founded in 1971 by Dr. R.C. Sproul.";
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -95,13 +94,13 @@ const stateHandlers = {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                         this.response.speak(message);
                         controller.play.call(this);
                     }.bind(this));
                 } else {
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     controller.play.call(this);
                 }
             } else {
@@ -109,7 +108,7 @@ const stateHandlers = {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }.bind(this));
@@ -157,13 +156,13 @@ const stateHandlers = {
                             initializeSession.call(this, body);
 
                             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                            let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                            let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                             this.response.speak(message);
                             controller.play.call(this);
                         }.bind(this));
                     } else {
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                         controller.play.call(this);
                     }
                 } else {
@@ -171,7 +170,7 @@ const stateHandlers = {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                         this.response.speak(message);
                         controller.play.call(this);
                     }.bind(this));
@@ -179,9 +178,8 @@ const stateHandlers = {
             } else {
                 this.handler.state = constants.states.RESUME_MODE;
                 var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                message = 'Welcome back to Open Book with Stephen Nichols. Previously you were listening to the episode from ' + podcast.date +
-                    ' titled ' + podcast.title + '. Would you like to resume that episode?';
-                reprompt = 'Say yes to resume the episode from ' + podcast.date + ' titled ' + podcast.title + ', or say no to play the latest episode.';
+                message = 'Welcome back to Open Book. Previously you were listening to the episode titled ' + podcast.title + '. Would you like to resume that episode?';
+                reprompt = 'Say yes to resume the episode titled ' + podcast.title + ', or say no to play the latest episode.';
                 this.response.speak(message).listen(reprompt);
                 this.emit(':responseReady');
             }
@@ -221,18 +219,18 @@ const stateHandlers = {
         'AMAZON.HelpIntent' : function () {
             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
 
-            var message = 'You\'re listening to Open Book for ' + podcast.date + ' titled ' + podcast.title + '. You can say Pause, or, Resume, to control playback. To listen to an earlier episode, say Previous. To return to the most recent episode, say Latest Episode. To learn more about Open Book, say About. What can I help you with?';
+            var message = 'You\'re listening to the episode titled ' + podcast.title + ' from Open Book. You can say Pause, or, Resume, to control playback. To listen to an earlier episode, say Previous. To return to the most recent episode, say Latest Episode. To learn more about Open Book, say About. What can I help you with?';
             var reprompt = 'What can I help you with?';
 
             var cardTitle = 'Help with Open Book';
-            var cardContent = 'You\'re listening to Open Book for ' + podcast.date + ' titled \"' + podcast.title + '\".\nSay "Pause" or "Resume" to control playback.\nSay \"Alexa, ask Open Book to play the latest episode\" to play the most recent episode.\nSay "Previous" to listen to an earlier episode.';
+            var cardContent = 'You\'re listening to the episode titled ' + podcast.title + ' from Open Book.\nSay "Pause" or "Resume" to control playback.\nSay \"Alexa, ask Open Book to play the latest episode\" to play the most recent episode.\nSay "Previous" to listen to an earlier episode.';
             this.response.cardRenderer(cardTitle, cardContent, null);
 
             this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
         },
         'AboutIntent': function() {
-            var message = "Open Book, hosted by Dr. Stephen Nichols, is a new weekly podcast. Open Book is an outreach of Ligonier.";
+            var message = "Open Book is a weekly audio program about the power of books and the people they\'ve shaped. Each season, join host Dr. Stephen Nichols weekly as we hear amazing stories and insights that our special guests have gleaned from the books on their shelves. Open Book is an outreach of Ligonier Ministries, an international Christian discipleship organization founded in 1971 by Dr. R.C. Sproul.";
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -245,13 +243,13 @@ const stateHandlers = {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                         this.response.speak(message);
                         controller.play.call(this);
                     }.bind(this));
                 } else {
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     controller.play.call(this);
                 }
             } else {
@@ -259,7 +257,7 @@ const stateHandlers = {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }.bind(this));
@@ -292,9 +290,8 @@ const stateHandlers = {
         'LaunchRequest' : function () {
             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
 
-            let message = 'Welcome back to Open Book with Stephen Nichols. Previously you were listening to the episode from ' + podcast.date +
-                ' titled ' + podcast.title + '. Would you like to resume that episode?';
-            let reprompt = 'Say yes to resume the episode from ' + podcast.date + ' titled ' + podcast.title + ', or say no to play the latest episode.';
+            let message = 'Welcome back to Open Book. Previously you were listening to the episode titled ' + podcast.title + '. Would you like to resume that episode?';
+            let reprompt = 'Say yes to resume the episode titled ' + podcast.title + ', or say no to play the latest episode.';
 
             this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
@@ -304,13 +301,26 @@ const stateHandlers = {
         },
         'AMAZON.NoIntent' : function () {
             // We can do a feed refresh on reset
-            controller.reset.call(this);
+            request(request_string, function(error, response, body) {
+                initializeSession.call(this, body);
+                var token = String(this.attributes.playOrder[this.attributes.index]);
+                var playBehavior = 'REPLACE_ALL';
+                var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
+                var offsetInMilliseconds = this.attributes.offsetInMilliseconds;
+                this.attributes.playbackIndexChanged = true;
+                // Since play behavior is REPLACE_ALL, enqueuedToken attribute need to be set to null.
+                this.attributes.enqueuedToken = null;
+
+                let message = 'Playing the latest episode titled ' + podcast.title;
+                this.response.speak(message);
+                controller.play.call(this);
+            }.bind(this));
         },
         'AMAZON.HelpIntent' : function () {
             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
 
-            let message = 'Previously you were listening to the episode from ' + podcast.date + ' titled ' + podcast.title + '. Would you like to resume that episode?';
-            let reprompt = 'Say yes to resume the episode from ' + podcast.date + ' titled ' + podcast.title + ', or say no to play the latest episode.';
+            let message = 'Previously you were listening to the episode titled ' + podcast.title + '. Would you like to resume that episode?';
+            let reprompt = 'Say yes to resume the episode titled ' + podcast.title + ', or say no to play the latest episode.';
 
             this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
@@ -324,7 +334,7 @@ const stateHandlers = {
             this.emit(':responseReady');
         },
         'AboutIntent': function() {
-            var message = "Open Book, hosted by Dr. Stephen Nichols, is a new weekly podcast. Open Book is an outreach of Ligonier.";
+            var message = "Open Book is a weekly audio program about the power of books and the people they\'ve shaped. Each season, join host Dr. Stephen Nichols weekly as we hear amazing stories and insights that our special guests have gleaned from the books on their shelves. Open Book is an outreach of Ligonier Ministries, an international Christian discipleship organization founded in 1971 by Dr. R.C. Sproul.";
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -337,14 +347,14 @@ const stateHandlers = {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                        let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                        let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
 
                         this.response.speak(message);
                         controller.play.call(this);
                     }.bind(this));
                 } else {
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }
@@ -353,7 +363,7 @@ const stateHandlers = {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
-                    let message = 'Welcome to Open Book with Stephen Nichols. The latest episode is titled ' + podcast.title;
+                    let message = 'Welcome to Open Book. The latest episode is titled ' + podcast.title;
                     this.response.speak(message);
                     controller.play.call(this);
                 }.bind(this));
@@ -395,11 +405,11 @@ var controller = function () {
                     this.attributes.enqueuedToken = null;
 
                     if (utils.canThrowCard.call(this)) {
-                        var cardTitle = podcast.title + ' (' + podcast.date + ')';
+                        var cardTitle = podcast.title;
                         var cardContent = podcast.description;
                         var cardImage = {
-                            'smallImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/700x700_OpenBook.jpg',
-                            'largeImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/1200x1200_OpenBook.jpg'
+                            'smallImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/700x700_OpenBook.jpg',
+                            'largeImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/1200x1200_OpenBook.jpg'
                         };
                         this.response.cardRenderer(cardTitle, cardContent, cardImage);
                     }
@@ -415,11 +425,11 @@ var controller = function () {
                 // Since play behavior is REPLACE_ALL, enqueuedToken attribute need to be set to null.
                 this.attributes.enqueuedToken = null;
 
-                var cardTitle = podcast.title + ' (' + podcast.date + ')';
+                var cardTitle = podcast.title;
                 var cardContent = podcast.description;
                 var cardImage = {
-                    'smallImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/700x700_OpenBook.jpg',
-                    'largeImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/1200x1200_OpenBook.jpg'
+                    'smallImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/700x700_OpenBook.jpg',
+                    'largeImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/1200x1200_OpenBook.jpg'
                 };
                 this.response.cardRenderer(cardTitle, cardContent, cardImage);
 
@@ -453,11 +463,11 @@ var controller = function () {
                     var offsetInMilliseconds = this.attributes.offsetInMilliseconds;
 
                     if (utils.canThrowCard.call(this)) {
-                        var cardTitle = podcast.title + ' (' + podcast.date + ')';
+                        var cardTitle = podcast.title;
                         var cardContent = podcast.description;
                         var cardImage = {
-                            'smallImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/700x700_OpenBook.jpg',
-                            'largeImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/1200x1200_OpenBook.jpg'
+                            'smallImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/700x700_OpenBook.jpg',
+                            'largeImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/1200x1200_OpenBook.jpg'
                         };
                         this.response.cardRenderer(cardTitle, cardContent, cardImage);
                     }
@@ -492,11 +502,11 @@ var controller = function () {
                     this.handler.state = constants.states.START_MODE;
 
                     if (utils.canThrowCard.call(this)) {
-                        var cardTitle = podcast.title + ' (' + podcast.date + ')';
+                        var cardTitle = podcast.title;
                         var cardContent = podcast.description;
                         var cardImage = {
-                            'smallImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/700x700_OpenBook.jpg',
-                            'largeImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/1200x1200_OpenBook.jpg'
+                            'smallImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/700x700_OpenBook.jpg',
+                            'largeImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/1200x1200_OpenBook.jpg'
                         };
                         this.response.cardRenderer(cardTitle, cardContent, cardImage);
                     }
@@ -532,11 +542,11 @@ var controller = function () {
                     var offsetInMilliseconds = this.attributes.offsetInMilliseconds;
 
                     if (utils.canThrowCard.call(this)) {
-                        var cardTitle = podcast.title + ' (' + podcast.date + ')';
+                        var cardTitle = podcast.title;
                         var cardContent = podcast.description;
                         var cardImage = {
-                            'smallImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/700x700_OpenBook.jpg',
-                            'largeImageUrl': 'https://s3.us-east-2.amazonaws.com/ligonier-audio-app/1200x1200_OpenBook.jpg'
+                            'smallImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/700x700_OpenBook.jpg',
+                            'largeImageUrl': 'https://s3.amazonaws.com/ligonier-echo-apps/1200x1200_OpenBook.jpg'
                         };
                         this.response.cardRenderer(cardTitle, cardContent, cardImage);
                     }
