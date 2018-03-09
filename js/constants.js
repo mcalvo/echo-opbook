@@ -2,7 +2,7 @@
 
 module.exports = Object.freeze({
     // App-ID. Set to your own Skill App ID from the developer portal.
-    appId : 'amzn1.ask.skill.f97c6cfe-20a6-481d-929b-3c72234ce323',
+    appId : 'amzn1.ask.skill.a78b95fd-cd92-4b93-a7c5-e3ea59619dab',
     // MIKE: 'amzn1.ask.skill.a78b95fd-cd92-4b93-a7c5-e3ea59619dab',
     // TYLER:'amzn1.ask.skill.f97c6cfe-20a6-481d-929b-3c72234ce323',
 

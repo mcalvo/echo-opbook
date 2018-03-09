@@ -1,10 +1,10 @@
 'use strict';
 
 const Alexa = require('alexa-sdk');
-const request = require('request');
+const Feed = require('rss-to-json');
 const constants = require('./constants');
 const utils = require('./utils');
-const request_string = 'https://www.ligonier.org/podcasts/open-book/alexa.json';
+const request_string = 'http://openbook.ligonier.org/rss';
 
 function initializeSession(body) {
     let today = new Date();
@@ -14,7 +14,7 @@ function initializeSession(body) {
     this.attributes.shuffle = false;
     this.attributes.playbackIndexChanged = true;
     this.handler.state = constants.states.START_MODE;
-    this.attributes.audioData = JSON.parse(body);
+    this.attributes.audioData = body.items;
     this.attributes.dataRefresh = today.toString();
     this.attributes.playOrder = Array.apply(null, {
         length: this.attributes.audioData.length
@@ -32,7 +32,7 @@ const stateHandlers = {
             if (this.attributes.dataRefresh){
                 let dr = new Date(this.attributes.dataRefresh);
                 if (dr < today) {
-                    request(request_string, function(error, response, body) {
+                    Feed.load(request_string, function(error, body){
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -47,7 +47,7 @@ const stateHandlers = {
                     controller.play.call(this);
                 }
             } else {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -59,7 +59,7 @@ const stateHandlers = {
         },
         'PlayAudio' : function () {
             if (!this.attributes.playOrder) {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
                     controller.play.call(this);
                 }.bind(this));
@@ -90,7 +90,7 @@ const stateHandlers = {
             if (this.attributes.dataRefresh){
                 let dr = new Date(this.attributes.dataRefresh);
                 if (dr != today) {
-                    request(request_string, function(error, response, body) {
+                    Feed.load(request_string, function(error, body) {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -104,7 +104,7 @@ const stateHandlers = {
                     controller.play.call(this);
                 }
             } else {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -152,7 +152,7 @@ const stateHandlers = {
                 if (this.attributes.dataRefresh){
                     let dr = new Date(this.attributes.dataRefresh);
                     if (dr != today) {
-                        request(request_string, function(error, response, body) {
+                        Feed.load(request_strig, function(error, body) {
                             initializeSession.call(this, body);
 
                             var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -166,7 +166,7 @@ const stateHandlers = {
                         controller.play.call(this);
                     }
                 } else {
-                    request(request_string, function(error, response, body) {
+                    Feed.load(request_string, function(error, body) {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -239,7 +239,7 @@ const stateHandlers = {
             if (this.attributes.dataRefresh){
                 let dr = new Date(this.attributes.dataRefresh);
                 if (dr != today) {
-                    request(request_string, function(error, response, body) {
+                    Feed.load(request_string, function(error, body) {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -253,7 +253,7 @@ const stateHandlers = {
                     controller.play.call(this);
                 }
             } else {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -301,7 +301,7 @@ const stateHandlers = {
         },
         'AMAZON.NoIntent' : function () {
             // We can do a feed refresh on reset
-            request(request_string, function(error, response, body) {
+            Feed.load(request_string, function(error, body) {
                 initializeSession.call(this, body);
                 var token = String(this.attributes.playOrder[this.attributes.index]);
                 var playBehavior = 'REPLACE_ALL';
@@ -343,7 +343,7 @@ const stateHandlers = {
             if (this.attributes.dataRefresh){
                 let dr = new Date(this.attributes.dataRefresh);
                 if (dr != today) {
-                    request(request_string, function(error, response, body) {
+                    Feed.load(request_string, function(error, body) {
                         initializeSession.call(this, body);
 
                         var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -359,7 +359,7 @@ const stateHandlers = {
                     controller.play.call(this);
                 }
             } else {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
 
                     var podcast = this.attributes.audioData[this.attributes.playOrder[this.attributes.index]];
@@ -394,7 +394,7 @@ var controller = function () {
             this.handler.state = constants.states.PLAY_MODE;
 
             if (this.attributes['playbackFinished']) {
-                request(request_string, function(error, response, body) {
+                Feed.load(request_string, function(error, body) {
                     initializeSession.call(this, body);
 
                     var token = String(this.attributes.playOrder[this.attributes.index]);
@@ -414,7 +414,7 @@ var controller = function () {
                         this.response.cardRenderer(cardTitle, cardContent, cardImage);
                     }
 
-                    this.response.audioPlayerPlay(playBehavior, podcast.url, token, null, offsetInMilliseconds);
+                    this.response.audioPlayerPlay(playBehavior, podcast.url.replace("http", "https"), token, null, offsetInMilliseconds);
                     this.emit(':responseReady');
                 }.bind(this));
             } else {
@@ -433,7 +433,7 @@ var controller = function () {
                 };
                 this.response.cardRenderer(cardTitle, cardContent, cardImage);
 
-                this.response.audioPlayerPlay(playBehavior, podcast.url, token, null, offsetInMilliseconds);
+                this.response.audioPlayerPlay(playBehavior, podcast.url.replace("http", "https"), token, null, offsetInMilliseconds);
                 this.emit(':responseReady');
             }
         },
@@ -473,7 +473,7 @@ var controller = function () {
                     }
 
                     var message = 'You\'re listening to the most recent episode. Say, Previous, to listen to earlier episodes.';
-                    this.response.speak(message).audioPlayerPlay(playBehavior, podcast.url, token, null, offsetInMilliseconds);
+                    this.response.speak(message).audioPlayerPlay(playBehavior, podcast.url.replace("http", "https"), token, null, offsetInMilliseconds);
                     this.emit(':responseReady');
                 }
             } else {
@@ -552,7 +552,7 @@ var controller = function () {
                     }
 
                     var message = 'You have reached the last available episode. Visit Open Book Podcast dot com to access older episodes';
-                    this.response.speak(message).audioPlayerPlay(playBehavior, podcast.url, token, null, offsetInMilliseconds);
+                    this.response.speak(message).audioPlayerPlay(playBehavior, podcast.url.replace("http", "https"), token, null, offsetInMilliseconds);
                     this.emit(':responseReady');
                 }
             } else {
@@ -636,7 +636,7 @@ var controller = function () {
         },
         reset: function () {
             // Update audioData
-            request(request_string, function(error, response, body) {
+            Feed.load(request_string, function(error, body) {
                 initializeSession.call(this, body);
                 var token = String(this.attributes.playOrder[this.attributes.index]);
                 var playBehavior = 'REPLACE_ALL';
